@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd" >
+<generatorConfiguration>
+    <!-- 驱动包配置 -->
+    <context id="context1">
+        <!-- 控制注释的生成 -->
+        <commentGenerator>
+            <property name="suppressDate" value="true"/>
+            <property name="suppressAllComments" value="true"/>
+        </commentGenerator>
+
+        <!-- 数据库连接配置 -->
+        <!--dev-->
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver" connectionURL="jdbc:mysql://101.201.51.207/cktest"
+                        userId="root" password="gx123456"/>
+        <!--local-->
+        <!--<jdbcConnection driverClass="com.mysql.jdbc.Driver" connectionURL="jdbc:mysql://192.168.0.115/cat"-->
+        <!--userId="gxcards" password="gxcards"/>-->
+
+        <javaTypeResolver>
+            <property name="forceBigDecimals" value="true"/>
+        </javaTypeResolver>
+
+        <!-- domain配置 -->
+
+        <javaModelGenerator targetPackage="com.cuking.core.domain"
+                            targetProject="/Users/cuking/myGitHub/cukingSSM/core/src/main/java">
+            <!-- 是否对model添加 构造函数 -->
+            <property name="constructorBased" value="true"/>
+
+            <!-- 是否允许子包，即targetPackage.schemaName.tableName -->
+            <property name="enableSubPackages" value="true"/>
+
+            <!-- 建立的Model对象是否 不可改变  即生成的Model对象不会有 setter方法，只有构造方法 -->
+            <property name="immutable" value="false"/>
+
+            <!--给Model添加一个父类 -->
+            <property name="rootClass" value="com.cuking.core.BaseModel"/>
+
+            <!-- 是否对类CHAR类型的列的数据进行trim操作 -->
+            <property name="trimStrings" value="true"/>
+        </javaModelGenerator>
+        <sqlMapGenerator targetPackage="sqlMappers"
+                         targetProject="/Users/cuking/myGitHub/cukingSSM/dao/src/main/resources">
+
+        </sqlMapGenerator>
+        <!-- 生成DAO的类文件以及配置文件 trans_smlpay_ex-->
+        <javaClientGenerator targetPackage="com.cuking.dao"
+                             targetProject="/Users/cuking/myGitHub/cukingSSM/dao/src/main/java" type="XMLMAPPER"/>
+
+        <table schema="" tableName="user" domainObjectName="User">
+        <property name="useActualColumnNames" value="false"/>
+        </table>
+        <!--<table schema="" tableName="TBL_PLATFORM_DOT" domainObjectName="PlatformDot">-->
+        <!--</table>-->
+        <!--<table schema="" tableName="TBL_PLATFORM_HOT_DOT" domainObjectName="PlatformHotDot">-->
+        <!--</table>-->
+        <!--<table schema="" tableName="TBL_RESOURCE" domainObjectName="Resource">-->
+        <!--</table>-->
+        <!--<table schema="" tableName="TBL_RESOURCE_CATEGORY" domainObjectName="ResourceCategory">-->
+        <!--</table>-->
+        <!--<table schema="" tableName="TBL_RESOURCE_EVALUATE" domainObjectName="ResourceEvaluate">-->
+        <!--</table>-->
+        <!--<table schema="" tableName="TBL_RESOURCE_LABEL" domainObjectName="ResourceLabel">-->
+        <!--</table>-->
+        <!--<table schema="" tableName="TBL_USER" domainObjectName="User">-->
+        <!--</table>-->
+        <!--<table schema="" tableName="TBL_USER_CARD_BAG" domainObjectName="UserCardBag">-->
+        <!--</table>-->
+        <!--<table schema="" tableName="TBL_USER_COLLECTION" domainObjectName="UserCollection">-->
+        <!--</table>-->
+        <!--<table schema="" tableName="TBL_USER_FEEDBACK" domainObjectName="UserFeedback">-->
+        <!--</table>-->
+        <!--<table schema="" tableName="TBL_USER_INCOME" domainObjectName="UserIncome">-->
+        <!--</table>-->
+        <!--<table schema="" tableName="TBL_USER_SEARCH" domainObjectName="UserSearch">-->
+        <!--</table>-->
+        <!--<table schema="" tableName="TBL_USER_WITHDRAW" domainObjectName="UserWithdraw">-->
+        <!--</table>-->
+        <!--<table schema="" tableName="TBL_PLATFORM_WX" domainObjectName="PlatformWx">-->
+        <!--</table>-->
+        <!--<table schema="" tableName="TBL_ORDERS" domainObjectName="Orders">-->
+        <!--</table>-->
+        <!--<table schema="" tableName="TBL_ADMIN" domainObjectName="Admin">-->
+        <!--</table>-->
+        <!--<table schema="" tableName="TBL_LOG_LOGIN" domainObjectName="LogLogin">-->
+        <!--</table>-->
+        <!--<table schema="" tableName="TBL_FREE_USER" domainObjectName="FreeUser">-->
+        <!--</table>-->
+        <!--<table schema="" tableName="TBL_FREE_RESOURCE" domainObjectName="FreeResource">-->
+        <!--</table>-->
+        <!--<table schema="" tableName="TBL_FREE_RESOURCE_PWD" domainObjectName="FreeResourcePwd">-->
+        <!--</table>-->
+        <!--<table schema="" tableName="TBL_FREE_RESOURCE_PWD_RULE" domainObjectName="FreeResourcePwdRule">-->
+        <!--</table>-->
+        <!--<table schema="" tableName="TBL_FREE_USER_RESOURCE" domainObjectName="FreeUserResource">-->
+        <!--</table>-->
+        <!--<table schema="" tableName="TBL_LOG_CALL" domainObjectName="LogCall">-->
+        <!--</table>-->
+        <!--<table schema="" tableName="TBL_PLATFORM_INCOME" domainObjectName="PlatformIncome">-->
+        <!--</table>-->
+        <!--<table schema="" tableName="TBL_WX_MENU" domainObjectName="WxMenu">-->
+        <!--</table>-->
+        <!--<table schema="" tableName="TBL_HOT_SEARCH" domainObjectName="HotSearch">-->
+        <!--</table>-->
+        <!--<table schema="" tableName="TBL_WX_BARCODE" domainObjectName="WxBarcode">-->
+        <!--</table>-->
+        <!--<table schema="" tableName="TBL_WX_SOURCE" domainObjectName="WxSource">-->
+        <!--</table>-->
+        <!--<table schema="" tableName="TBL_WX_HATCH_EGG_TEMP" domainObjectName="WxHatchEggTemp">-->
+        <!--</table>-->
+        <!--<table schema="" tableName="TBL_WX_HATCH_HELP_TEMP" domainObjectName="WxHatchHelpTemp">-->
+        <!--</table>-->
+        <!--<table schema="" tableName="TBL_WX_HATCH_USER_TEMP" domainObjectName="WxHatchUserTemp">-->
+        <!--</table>-->
+        <!--<table schema="" tableName="TBL_WX_HATCH_DOT_TEMP" domainObjectName="WxHatchDotTemp">-->
+        <!--</table>-->
+        <!--<table schema="" tableName="TBL_FREE_CODE" domainObjectName="FreeCode">-->
+        <!--</table>-->
+        <!--<table schema="" tableName="TBL_MP_INFO" domainObjectName="MpInfo">-->
+        <!--</table>-->
+        <!--<table schema="" tableName="TBL_MP_SERIAL" domainObjectName="MpSerial">-->
+        <!--</table>-->
+        <!--<table schema="" tableName="TBL_FREE_RESOURCE_CATEGORY" domainObjectName="FreeResourceCategory">-->
+        <!--</table>-->
+        <!--<table schema="" tableName="TBL_EMPLOYEE" domainObjectName="Employee">-->
+        <!--</table>-->
+        <!--<table schema="" tableName="TBL_LOG_DOT" domainObjectName="LogDot">-->
+        <!--</table>-->
+        <!--<table schema="" tableName="TBL_DICT_SHARE_DAY" domainObjectName="DictShareDay">-->
+        <!--</table>-->
+
+
+        <!--<table schema="" tableName="tbl_unfree_resource" domainObjectName="UnFreeResource">-->
+            <!--<property name="useActualColumnNames" value="false"/>-->
+        <!--</table>-->
+        <!--<table schema="" tableName="tbl_unfree_recharge" domainObjectName="UnFreeRecharge">-->
+            <!--<property name="useActualColumnNames" value="false"/>-->
+        <!--</table>-->
+        <!--<table schema="" tableName="tbl_unfree_resource_detail" domainObjectName="UnFreeResourceDetail">-->
+            <!--<property name="useActualColumnNames" value="false"/>-->
+        <!--</table>-->
+        <!--<table schema="" tableName="tbl_unfree_label" domainObjectName="UnFreeLabel">-->
+            <!--<property name="useActualColumnNames" value="false"/>-->
+        <!--</table>-->
+        <!--<table schema="" tableName="tbl_unfree_label_config" domainObjectName="UnFreeLabelConfig">-->
+            <!--<property name="useActualColumnNames" value="false"/>-->
+        <!--</table>-->
+        <!--<table schema="" tableName="tbl_unfree_order" domainObjectName="UnFreeOrder">-->
+            <!--<property name="useActualColumnNames" value="false"/>-->
+        <!--</table>-->
+        <!--<table schema="" tableName="tbl_unfree_user_resource" domainObjectName="UnFreeUserResource">-->
+            <!--<property name="useActualColumnNames" value="false"/>-->
+        <!--</table>-->
+        <!--<table schema="" tableName="tbl_unfree_category" domainObjectName="UnFreeCategory">-->
+            <!--<property name="useActualColumnNames" value="false"/>-->
+        <!--</table>-->
+        <!--<table schema="" tableName="tbl_unfree_user_detail" domainObjectName="UnFreeUserDetail">-->
+            <!--<property name="useActualColumnNames" value="false"/>-->
+        <!--</table>-->
+        <!--<table schema="" tableName="tbl_share_time" domainObjectName="ShareTime">-->
+        <!--<property name="useActualColumnNames" value="false"/>-->
+        <!--</table>-->
+        <!--<table schema="" tableName="tbl_unfree_merchants" domainObjectName="UnFreeMerchants">-->
+        <!--<property name="useActualColumnNames" value="false"/>-->
+        <!--</table>-->
+
+    </context>
+
+
+</generatorConfiguration>

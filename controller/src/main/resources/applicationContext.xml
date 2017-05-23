@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:jpa="http://www.springframework.org/schema/data/jpa"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd
+       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd http://www.springframework.org/schema/data/jpa http://www.springframework.org/schema/data/jpa/spring-jpa.xsd">
+
+    <!--<import resource="classpath:memcached.xml"/>-->
+
+
+    <!--<context:component-scan base-package="" />-->
+
+
+    <!--开启mvc的默认配置-->
+    <mvc:annotation-driven>
+        <!-- 消息转换器 -->
+        <!--<mvc:message-converters register-defaults="true">-->
+        <!--<bean class="org.springframework.http.converter.StringHttpMessageConverter">-->
+        <!--<property name="supportedMediaTypes" value="text/html;charset=UTF-8"/>-->
+        <!--</bean>-->
+        <!--</mvc:message-converters>-->
+    </mvc:annotation-driven>
+
+    <!--文件上传-->
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver"
+          p:defaultEncoding="utf-8"/>
+
+
+
+    <!--开启jsonp -->
+    <!--<bean class="org.springframework.web.servlet.view.json.MappingJackson2JsonView">-->
+    <!--<property name="jsonpParameterNames">-->
+    <!--<set>-->
+    <!--<value>jsonp</value>-->
+    <!--<value>callback</value>-->
+    <!--</set>-->
+    <!--</property>-->
+    <!--</bean>-->
+
+    <!--@Order(2)-->
+    <!--@ControllerAdvice(basePackages = "com.github")-->
+    <!--public class JsonpAdvice extends AbstractJsonpResponseBodyAdvice {-->
+    <!--public JsonpAdvice() {-->
+    <!--super("callback", "jsonp"); //指定jsonpParameterNames-->
+    <!--}-->
+    }
+
+
+
+    <!--数据库连接-->
+    <bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="locations">
+            <list>
+                <value>classpath:**/jdbc.properties</value>
+                <value>classpath:**/wxconfig.properties</value>
+            </list>
+        </property>
+    </bean>
+
+    <bean id="springContextUtil" class="com.gxfuture.mobile.core.util.SpringContextUtil"/>
+
+    <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close">
+        <property name="url" value="${jdbc.url}"/>
+        <property name="username" value="${jdbc.username}"/>
+        <property name="password" value="${jdbc.password}"/>
+
+        <property name="filters" value="config"/>
+        <property name="connectionProperties" value="config.decrypt=${config.decrypt}"/>
+
+        <!-- 配置初始化大小、最小、最大 -->
+        <property name="initialSize" value="${jdbc.initialSize}"/>
+        <property name="minIdle" value="${jdbc.minIdle}"/>
+        <property name="maxActive" value="${jdbc.maxActive}"/>
+
+        <!-- 配置获取连接等待超时的时间 -->
+        <property name="maxWait" value="180000"/>
+
+        <!-- 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒 -->
+        <property name="timeBetweenEvictionRunsMillis" value="60000"/>
+
+        <!-- 配置一个连接在池中最小生存的时间，单位是毫秒 -->
+        <property name="minEvictableIdleTimeMillis" value="300000"/>
+
+        <property name="validationQuery" value='show status like "%Service_Status%";'/>
+        <property name="testWhileIdle" value="true"/>
+        <property name="testOnBorrow" value="false"/>
+        <property name="testOnReturn" value="false"/>
+    </bean>
+
+    <!-- sql Session factory -->
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="dataSource"/>
+        <property name="configLocation" value="classpath:mybatis-config.xml"/>
+        <!-- mapper and resultmap configuration location -->
+        <property name="mapperLocations">
+            <list>
+                <value>classpath*:sqlMappers/**/*Mapper.xml</value>
+            </list>
+        </property>
+    </bean>
+    <bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">
+        <constructor-arg ref="sqlSessionFactory"></constructor-arg>
+    </bean>
+
+
+    <!-- 定义事务管理 -->
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+    <!-- enables scanning for @Transactional annotations -->
+    <tx:annotation-driven transaction-manager="transactionManager"/>
+
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="basePackage" value="com.gxfuture.mobile.dao"/>
+        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
+        <property name="sqlSessionTemplateBeanName" value="sqlSessionTemplate"/>
+    </bean>
+</beans>
